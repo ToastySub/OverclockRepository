@@ -2,6 +2,10 @@
 using System.Collections;
 
 public class Player : MonoBehaviour {
+
+	[SerializeField] private GameObject pistol;
+	[SerializeField] private GameObject blaster;
+
 	[System.Serializable]
 	public class playerStats
 	{
@@ -33,14 +37,29 @@ public class Player : MonoBehaviour {
 	{
 		PlayerStats.gold += amount;
 	}
+	void CheckInput(){
+		Overclock ();
+		WeaponSwitch ();
+	}
 
-	 void Update()
-	{
-		if (Input.GetKey (KeyCode.E) && PlayerStats.overclockCur > 0) {
+	void WeaponSwitch(){
+
+		if (Input.GetKeyDown(KeyCode.Alpha1)){
+				pistol.SetActive(true);
+				blaster.SetActive(false);
+		}
+		if (Input.GetKeyDown(KeyCode.Alpha2)){
+				blaster.SetActive(true);
+				pistol.SetActive(false);
+			}
+			
+	}
+	void Overclock(){
+		if (Input.GetKeyDown (KeyCode.E) && PlayerStats.overclockCur > 0) {
 			overclock = true;
 		}
 		if 	(time > 5){
-			
+
 			overclock = false;
 			time = 0;
 		}
@@ -54,6 +73,11 @@ public class Player : MonoBehaviour {
 			time += 1 * Time.deltaTime;
 			PlayerStats.overclockCur -= 10 * Time.deltaTime;
 		}
+	}
+
+	 void Update()
+	{
+		CheckInput ();
 	}
 
 	void Start()

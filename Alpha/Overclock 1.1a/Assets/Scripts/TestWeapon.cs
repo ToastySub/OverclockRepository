@@ -43,7 +43,7 @@ public class TestWeapon : MonoBehaviour {
 					p.DamagePlayer (10);
 				}
 			}
-			Debug.DrawLine (firePosition, hit.point, Color.red);
+		//Debug.DrawLine (firePosition, hit.point, Color.red);
 		}
 	}
 }
