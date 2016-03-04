@@ -5,6 +5,7 @@ public class Player : MonoBehaviour {
 
 	[SerializeField] private GameObject pistol;
 	[SerializeField] private GameObject blaster;
+	[SerializeField] private GameObject launcher;
 
 	[System.Serializable]
 	public class playerStats
@@ -45,13 +46,20 @@ public class Player : MonoBehaviour {
 	void WeaponSwitch(){
 
 		if (Input.GetKeyDown(KeyCode.Alpha1)){
-				pistol.SetActive(true);
-				blaster.SetActive(false);
+			pistol.SetActive(true);
+			blaster.SetActive(false);
+			launcher.SetActive (false);
 		}
 		if (Input.GetKeyDown(KeyCode.Alpha2)){
-				blaster.SetActive(true);
-				pistol.SetActive(false);
+			blaster.SetActive(true);
+			pistol.SetActive(false);
+			launcher.SetActive (false);
 			}
+		if (Input.GetKeyDown(KeyCode.Alpha3)){
+			blaster.SetActive(false);
+			pistol.SetActive(false);
+			launcher.SetActive (true);
+		}
 			
 	}
 	void Overclock(){
