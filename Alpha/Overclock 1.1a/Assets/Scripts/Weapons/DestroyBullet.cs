@@ -4,9 +4,9 @@ using System.Collections;
 
 
 public class DestroyBullet : MonoBehaviour {
-
+	public int speed;
 	void Update () {
-		transform.Translate (Vector3.right * Time.deltaTime * 80);
+		transform.Translate (Vector3.right * Time.deltaTime * speed);
 		Destroy (gameObject, 10);
 
 

@@ -4,15 +4,20 @@ using System.Collections;
 public class BlasterScript : MonoBehaviour {
 
 	public float damage = 10;
-	public LayerMask whatToHit;
-	public Transform bulletPrefab;
-	public Transform bulletSpawn;
+	public int clipSize = 12;
+	public int currentClip;
+	public float reloadTime = 2.5f;
+	public float critPerc = 20;
+	public float critDmg = 1.5f;
 	private float shootInterval = 0.2f;
-	[SerializeField] private int currentClip;
-	[SerializeField] private int clipSize = 12;
-	[SerializeField] private float reloadTime = 2.5f;
+
+	public LayerMask whatToHit;
+	public GameObject bulletPrefab;
+	public GameObject critPrefab;
+	public Transform bulletSpawn;
 	private bool reloading = false;
-	float shootTimer;
+	private float shootTimer;
+	private float critRNG;
 
 
 
@@ -21,34 +26,48 @@ public class BlasterScript : MonoBehaviour {
 		currentClip = clipSize;
 	}
 
-	void Update () {
-		shootTimer += Time.deltaTime;
-		if (Input.GetMouseButton (0) && currentClip > 0 && reloading == false) 
-			Shoot ();
-		if (Input.GetKeyDown (KeyCode.R) && currentClip != clipSize && reloading == false) {
-			reloading = true;
-			StartCoroutine (Reloading ());
-		}
+	void OnEnable(){
+		reloading = false;
 	}
 
-	IEnumerator Reloading(){
+	void Update () {
+		shootTimer += Time.deltaTime;
+	if (Input.GetMouseButton (0) && reloading == false) {
+			if (currentClip > 0)
+				Shoot ();
+			else {
+				StartCoroutine (Reload ());
+				reloading = true;
+			}
+	}
+	if (Input.GetKeyDown (KeyCode.R) && currentClip != clipSize && reloading == false) {
+		reloading = true;
+		StartCoroutine (Reload ());
+	}
+}
+	IEnumerator Reload(){
 		yield return new WaitForSeconds (reloadTime);
 		currentClip = clipSize;
 		Debug.Log ("Reloaded");
 		reloading = false;
-		StopCoroutine (Reloading ());
+		StopCoroutine (Reload ());
 	}
 	void Shoot(){
 		if (shootTimer > shootInterval) {
+			critRNG = Random.value * 100;
 			shootTimer = 0;
 			Vector2 mousePosition = new Vector2 (Camera.main.ScreenToWorldPoint (Input.mousePosition).x, Camera.main.ScreenToWorldPoint (Input.mousePosition).y);
 			Vector2 firePosition = new Vector2 (bulletSpawn.position.x, bulletSpawn.position.y);
 			RaycastHit2D hit = Physics2D.Raycast (firePosition, (mousePosition - firePosition), 1, whatToHit);
-			Instantiate (bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
+			if (critRNG < critPerc) {
+				Instantiate (critPrefab, bulletSpawn.position, bulletSpawn.rotation);
+				damage *= critDmg;
+			} else
+				Instantiate (bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
 			currentClip--;
 			if (currentClip == 0) {
 				reloading = true;
-				StartCoroutine (Reloading ());
+				StartCoroutine (Reload ());
 			}
 
 			if (hit.collider != null) {

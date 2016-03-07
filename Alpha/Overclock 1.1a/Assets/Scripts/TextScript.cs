@@ -12,7 +12,7 @@ public class TextScript : MonoBehaviour {
 		if(SceneManager.GetActiveScene().name=="Level1") 
 			textField.text = "Press 'T' to teleport to Rest Area\n Press 'Y' to teleport to Level 2";
 		if(SceneManager.GetActiveScene().name=="Rest Area") 
-			textField.text = "Press 'Y' to teleport to Level 2";
+			textField.text = "Press 'T' to teleport to Level 1 \n Press 'Y' to teleport to Level 2";
 	}
 
 

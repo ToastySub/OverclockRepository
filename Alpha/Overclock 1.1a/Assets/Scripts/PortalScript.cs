@@ -6,8 +6,10 @@ public class PortalScript : MonoBehaviour {
 	[SerializeField] private GameObject textDisplay;
 	private float timer = 0;
 	private bool goToRestArea = false;
+	private bool goToLevel1 = false;
 	private bool goToLevel2 = false;
 	private bool startTimer = false;
+	private bool onTeleporter = false;
 	// Use this for initialization
 	void Start () {
 	
@@ -17,32 +19,58 @@ public class PortalScript : MonoBehaviour {
 	void Update () {
 		if (startTimer == true)
 			timer += Time.deltaTime;
+		if (onTeleporter == true) {
+			Debug.Log ("onTeleporter");
+		}
+			if (SceneManager.GetActiveScene ().name == "Level1") {
+				
+			if (Input.GetKeyDown (KeyCode.T)) {
+					Debug.Log ("Pressed T");
+					goToRestArea = true;
+					startTimer = true;
+				}
+					
+			if (Input.GetKeyDown (KeyCode.Y))	{
+						Debug.Log ("Pressed Y");
+						goToLevel2 = true;
+						startTimer = true;
+				}
+					
+			}
+			if (SceneManager.GetActiveScene ().name == "Rest Area") {
+			if (Input.GetKeyDown (KeyCode.T)) {
+				Debug.Log ("Pressed T");
+				goToLevel1 = true;
+				startTimer = true;
+			}
+			if (Input.GetKeyDown (KeyCode.Y)){
+						Debug.Log ("Pressed Y");
+						goToLevel2 = true;
+						startTimer = true;
+				}
+			}
+			
 		if (timer >= 2 && goToRestArea == true)
 			SceneManager.LoadScene ("Rest Area");
 		if (timer >= 2 && goToLevel2 == true)
 			SceneManager.LoadScene ("Level2");
+		if (timer >= 2 && goToLevel1 == true)
+			SceneManager.LoadScene ("Level1");
+
+
+
 	}
 		
-	void OnTriggerStay2D(Collider2D col){
+	void OnTriggerEnter2D(Collider2D col){
 		if (col.gameObject.tag == "Player") {
-			if (Input.GetKeyDown (KeyCode.T) && SceneManager.GetActiveScene().name=="Level1") {
-				Debug.Log ("Pressed T");
-				goToRestArea = true;
-				startTimer = true;
-			}
-			if (Input.GetKeyDown (KeyCode.Y)) {
-				Debug.Log ("Pressed Y");
-				goToLevel2 = true;
-				startTimer = true;
-			}
+			onTeleporter = true;
+			textDisplay.SetActive (true);
 		}
 	}
-	void OnCollisionEnter2D (Collision2D col) {
-	if (col.gameObject.tag == "Player") 
-			textDisplay.SetActive (true);
-	}
-	void OnCollisionExit2D (Collision2D col) {
-		if (col.gameObject.tag == "Player") 
+	void OnTriggerExit2D(Collider2D col){
+		if (col.gameObject.tag == "Player") {
+			onTeleporter = false;
 			textDisplay.SetActive (false);
+		}
 	}
 }

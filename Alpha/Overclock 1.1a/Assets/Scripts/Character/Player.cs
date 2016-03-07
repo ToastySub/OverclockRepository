@@ -7,6 +7,7 @@ public class Player : MonoBehaviour {
 	[SerializeField] private GameObject blaster;
 	[SerializeField] private GameObject launcher;
 
+
 	[System.Serializable]
 	public class playerStats
 	{
