@@ -7,7 +7,7 @@ public class BlasterScript : MonoBehaviour {
 	public int clipSize = 12;
 	public int currentClip;
 	public float reloadTime = 2.5f;
-	public float critPerc = 20;
+	public float critPerc = 20f;
 	public float critDmg = 1.5f;
 	private float shootInterval = 0.2f;
 
@@ -15,6 +15,7 @@ public class BlasterScript : MonoBehaviour {
 	public GameObject bulletPrefab;
 	public GameObject critPrefab;
 	public Transform bulletSpawn;
+	public AudioSource blasterClip;
 	private bool reloading = false;
 	private float shootTimer;
 	private float critRNG;
@@ -54,6 +55,7 @@ public class BlasterScript : MonoBehaviour {
 	}
 	void Shoot(){
 		if (shootTimer > shootInterval) {
+			blasterClip.Play ();
 			critRNG = Random.value * 100;
 			shootTimer = 0;
 			Vector2 mousePosition = new Vector2 (Camera.main.ScreenToWorldPoint (Input.mousePosition).x, Camera.main.ScreenToWorldPoint (Input.mousePosition).y);

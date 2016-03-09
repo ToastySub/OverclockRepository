@@ -81,7 +81,7 @@ public class Walking : MonoBehaviour {
 		}
 	}
 
-	void OnCollisionEnter2D (Collision2D col)
+	void OnTriggerEnter2D (Collider2D col)
 	{
 		if (col.gameObject.tag == "Ground") 
 		{
@@ -93,7 +93,7 @@ public class Walking : MonoBehaviour {
 		} 
 	}
 
-	void OnCollisionExit2D (Collision2D col)
+	void OnTriggerExit2D (Collider2D col)
 	{
 		grounded = false;
 	}

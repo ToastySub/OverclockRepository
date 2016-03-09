@@ -7,6 +7,7 @@ public class TestWeapon : MonoBehaviour {
 	public float damage = 10;
 	public GameObject grenadePrefab;
 	public Transform grenadeSpawn;
+	public AudioSource shootClip;
 	private float timeToShoot = 0;
 
 	void Start(){
@@ -18,6 +19,7 @@ public class TestWeapon : MonoBehaviour {
 	}
 
 	void Shoot(){
+		shootClip.Play ();
 		Instantiate (grenadePrefab, grenadeSpawn.position, grenadeSpawn.rotation);
 
 	}
