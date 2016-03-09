@@ -1,0 +1,30 @@
+Used for seeing which sprite is for what animation
+
+Boss enlarged.png
+0: 	Idle
+1-32: 	Walking
+33-53: 	Attack
+
+Player enlarged.png
+0: 	Standstill
+1-12: 	Walking
+13-20:	Jumping
+21-23: 	Falling
+24-30: 	DoubleJump
+
+Turret Enlarged.png	Slice BottomLeft
+0:	Idle
+1-48:	Setup
+49: 	Base 
+50:	TurretIdle
+51-67: TurretFire
+
+Flying Drone Atlas.png	
+0-6: 	Idle/Hovering
+7-9: 	Gun Anim
+10-23: 	Death Anim
+
+DroneT2Atlas.png	
+0: 	Body
+1: 	Gun Idle
+2-3: 	Gun Fire
