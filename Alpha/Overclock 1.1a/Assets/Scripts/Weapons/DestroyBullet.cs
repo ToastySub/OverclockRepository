@@ -3,21 +3,19 @@ using System.Collections;
 
 
 
-public class DestroyBullet : MonoBehaviour {
-	public int speed;
-	void Update () {
-		transform.Translate (Vector3.right * Time.deltaTime * speed);
-		Destroy (gameObject, 10);
-
-
-
-
-	
-	}
-	void OnCollisionEnter2D(Collision2D col)
+public class DestroyBullet : MonoBehaviour
+{
+	[SerializeField] private int speed;
+	float startPos;
+	private float startTime;
+	void Update ()
 	{
-		if (col.gameObject.tag == "Ground") {
-			Destroy (gameObject);
-		}
+		transform.Translate (Vector2.right * speed * Time.deltaTime);
+		Destroy (gameObject, 3);
+	}
+
+	void OnTriggerEnter2D (Collider2D col)
+	{
+		Destroy (gameObject);
 	}
 }

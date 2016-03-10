@@ -11,7 +11,11 @@ public class MouseTrack : MonoBehaviour {
 
 	void Start ()
 	{
+		camera = Camera.main;
 		animator.GetComponent<Animator> ();
+	}
+	void OnLevelWasLoaded(){
+		camera = Camera.main;
 	}
 
 	void Update () {

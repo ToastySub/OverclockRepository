@@ -9,20 +9,16 @@ public class Enemies : MonoBehaviour {
 	public float armor = 0.0f;
 	public float drop;
 	public GameObject enemyHPFill;
-	public GameObject root;
 
 
 	void Start () {
-		currentHealth = maxHealth;
+		this.currentHealth = maxHealth;
 	}
 
 	public void TakeDamage (float damage)
 	{
 		currentHealth -= damage * (1.00f - (0.01f * armor));
-		if (currentHealth <= 0) 
-		{
-			Destroy (gameObject);
-		}
+
 
 	}
 

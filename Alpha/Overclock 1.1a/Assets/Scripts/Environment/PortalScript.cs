@@ -4,19 +4,33 @@ using UnityEngine.SceneManagement;
 
 public class PortalScript : MonoBehaviour {
 	[SerializeField] private GameObject textDisplay;
+	GameObject player; 
+	[SerializeField] private GameObject camera;
+	[SerializeField] private GameObject sceneMaster;
 	private float timer = 0;
+
 	private bool goToRestArea = false;
 	private bool goToLevel1 = false;
 	private bool goToLevel2 = false;
 	private bool startTimer = false;
 	private bool onTeleporter = false;
 	// Use this for initialization
+	void Awake() {
+		player = GameObject.Find ("Carlos");
+		DontDestroyOnLoad(player);
+		DontDestroyOnLoad(camera);
+
+
+		}
 	void Start () {
-	
+		if (SceneManager.GetActiveScene ().name == "Rest Area") {
+			player.transform.position = new Vector2 (18, -2);
+		}
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
+			
 		if (startTimer == true)
 			timer += Time.deltaTime;
 		if (onTeleporter == true) {

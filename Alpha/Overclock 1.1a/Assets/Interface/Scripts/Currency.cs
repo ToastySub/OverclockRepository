@@ -4,14 +4,16 @@ using UnityEngine.UI;
 
 public class Currency : MonoBehaviour {
 	private Text coins;
-	public Player player;
+	public GameObject player;
+
 
 	void Start () {
 		coins = this.GetComponent<Text>();
+		player = GameObject.Find ("Carlos");
 		player.GetComponent<Player>();
 	}
 	void Update() {
-		coins.text = player.PlayerStats.gold.ToString ();
+		coins.text = player.GetComponent<Player> ().PlayerStats.gold.ToString ();
 	}
 
 }
