@@ -10,7 +10,7 @@ public class BlasterScript : MonoBehaviour
 	public float reloadTime = 2.5f;
 	public float critPerc = 20f;
 	public float critDmg = 7.5f;
-	private float shootInterval = 0.2f;
+	public float shootInterval = 0.2f;
 	private float damageOut;
 
 	public LayerMask whatToHit;

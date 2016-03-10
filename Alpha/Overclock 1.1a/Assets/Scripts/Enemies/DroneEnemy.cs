@@ -30,35 +30,35 @@ public class DroneEnemy : MonoBehaviour
 	void Update ()
 	{
 		if (stats.currentHealth < 0) {
-			Destroy (gameObject);
 			DroneDeath ();
 		}
-			if (player.transform.position.x > transform.position.x) {
-				leftSide = true;
-				rightSide = false;
-			} else if (player.transform.position.x < transform.position.x) {
-				leftSide = false;
-				rightSide = true;
-			}
-		
-			if (leftSide == true && flipped == false) {
-				transform.Rotate (new Vector3 (0, 180, 0));
-				flipped = true;
-				xOffset *= -1;
-			} else if (rightSide == true && flipped == true) {
-				transform.Rotate (new Vector3 (0, 180, 0));
-				flipped = false;
-				xOffset *= -1;
-			}
 
-
-			transform.position = Vector3.Lerp (transform.position, new Vector3 (target.transform.position.x + xOffset, 
-				target.transform.position.y + yOffset, 
-				target.transform.position.z), Time.deltaTime * leftRight);
+		if (player.transform.position.x > transform.position.x) {
+			leftSide = true;
+			rightSide = false;
+		} else if (player.transform.position.x < transform.position.x) {
+			leftSide = false;
+			rightSide = true;
 		}
+	
+		if (leftSide == true && flipped == false) {
+			transform.Rotate (new Vector3 (0, 180, 0));
+			flipped = true;
+			xOffset *= -1;
+		} else if (rightSide == true && flipped == true) {
+			transform.Rotate (new Vector3 (0, 180, 0));
+			flipped = false;
+			xOffset *= -1;
+		}
+
+
+		transform.position = Vector3.Lerp (transform.position, new Vector3 (target.transform.position.x + xOffset, 
+			target.transform.position.y + yOffset, 
+			target.transform.position.z), Time.deltaTime * leftRight);
+	}
 	void DroneDeath()
 	{
+		Instantiate (droneDestroy, this.transform.position, this.transform.rotation);
 		Destroy (gameObject);
-		Instantiate (droneDestroy, transform.position, transform.rotation);
 	}
 }
