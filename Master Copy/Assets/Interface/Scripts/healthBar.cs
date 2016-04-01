@@ -4,15 +4,17 @@ using UnityEngine.UI;
 
 public class healthBar : MonoBehaviour 
 {
-	public GameObject player;
+	GameObject player;
 	public Image HPFill;
+    public Image EnergyFill;
 
 	void Start () {
-		
+		player = GameObject.Find ("Carlos");	
 	}
 
 	void Update () 
 	{
-		HPFill.fillAmount = 50; //player.GetComponent<Player> ().PlayerStats.currentHealth / player.GetComponent<Player>().PlayerStats.maxHealth;
+		HPFill.fillAmount = player.GetComponent<Player> ().currentHealth / player.GetComponent<Player>().maxHealth;
+        EnergyFill.fillAmount = player.GetComponent<PlayerController>().energyCur / player.GetComponent<PlayerController>().energyMax;
 	}
 }
